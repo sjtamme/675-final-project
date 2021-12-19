@@ -6,6 +6,9 @@ I followed an intermediate Mapbox tutorial on how to analyze data with Turf.js a
 
 In addition to the tutorial, I drew from the following Mapbox GL JS examples when creating my map:
 https://docs.mapbox.com/mapbox-gl-js/example/simple-map/
+
 https://docs.mapbox.com/mapbox-gl-js/example/center-on-feature/
+
+https://docs.mapbox.com/mapbox-gl-js/example/restrict-bounds/
 
 Mapbox Tutorial: https://docs.mapbox.com/help/tutorials/analysis-with-turf/ 
