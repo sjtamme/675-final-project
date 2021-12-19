@@ -16,3 +16,6 @@ I [restricted user panning](https://docs.mapbox.com/mapbox-gl-js/example/restric
 
 [Cooperative gestures](https://docs.mapbox.com/mapbox-gl-js/example/cooperative-gestures/) were used to add a full-screen control.
 
+[Mapbox GL directions](https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-directions/) was added so that users can see the directions between clicked school and closest medical center.
+
+
