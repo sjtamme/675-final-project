@@ -14,5 +14,5 @@ I [restricted user panning](https://docs.mapbox.com/mapbox-gl-js/example/restric
 
 [Popups](https://docs.mapbox.com/mapbox-gl-js/example/popup/) were added to show the name of all the schools and medical centers symbolized.
 
-[Cooperative Gestures](https://docs.mapbox.com/mapbox-gl-js/example/cooperative-gestures/) to add a full-screen control.
+[Cooperative gestures](https://docs.mapbox.com/mapbox-gl-js/example/cooperative-gestures/) were used to add a full-screen control.
 
