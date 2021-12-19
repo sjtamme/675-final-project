@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Final Project</title>
+    <title>Denver Schools & Medical Centers</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <link href="https://api.mapbox.com/mapbox-assembly/v0.24.0/assembly.min.css" rel="stylesheet">
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.1/mapbox-gl.css' rel='stylesheet' />
@@ -16,6 +16,14 @@
             margin: 0;
             padding: 0;
         }
+
+        a, a:link, a:visited {
+        color: red;
+        background-color: transparent;
+        text-decoration: none;
+        }
+
+
     </style>
 </head>
 
@@ -23,20 +31,16 @@
 
     <div class='grid bg-gray-dark absolute h-full w-full'>
         <div class='col col--12 border-b border--white color-white'>
-            <h1 class='txt-h2 mx36 my24 inline-block'>Final Project Map</h1>
+            <h1 class='txt-h2 mx36 my24 inline-block'>Denver Schools & Medical Centers</h1>
             <p class='fr mr24 mt36'>Sources: <a class='link' target='_blank'
                     href='https://mygeodata.cloud/data/download/osm/schools/united-states-of-america--colorado/denver-county/denver'>Schools:
                     MyGeodata Cloud</a> and
                 <a class='link' target='_blank'
                     href='https://mygeodata.cloud/data/download/osm/hospitals/united-states-of-america--colorado'>
-                    Hospitals: MyGeodata Cloud</a></p>
+                    Medical Centers: MyGeodata Cloud</a></p>
         </div>
         <div class='col col--12 h-full relative'>
             <div id='map' class='w-full h-full'></div>
-            <div id='legend'
-                class='w180 bg-white absolute top right mt18 mr18 round shadow-darken10 px12 py12 txt-s none'>
-                <strong class='block mb6 txt-l'>Zones</strong>
-                <ul class='ul mb6'></ul>
             </div>
         </div>
     </div>
@@ -57,11 +61,15 @@
         // create a new map
         const map = new mapboxgl.Map({
             container: 'map', // container id
-            style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
+            style: 'mapbox://styles/mapbox/dark-v10', // stylesheet location
+            cooperativeGestures:true, 
             center: [-104.9903, 39.7392], // starting position
             zoom: 12, // starting zoom
             maxBounds: bounds // Set the map's geographical boundaries
         });
+
+         
+    map.addControl(new mapboxgl.        FullscreenControl());
 
         const hospitals = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"Label":"Bonfils Blood Center"},"geometry":{"type":"Point","coordinates":[-105.1552468,39.7442094]}},{"type":"Feature","properties":{"Label":"Buck Creek Medical Center"},"geometry":{"type":"Point","coordinates":[-106.5223865,39.6396839]}},{"type":"Feature","properties":{"Label":"Cedar Springs Hospital"},"geometry":{"type":"Point","coordinates":[-104.8166404,38.8019373]}},{"type":"Feature","properties":{"Label":"Child First Pediatrics"},"geometry":{"type":"Point","coordinates":[-104.8848628,39.5840004]}},{"type":"Feature","properties":{"Label":"Children's Hospital Colorado at Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-104.799593,38.8393776]}},{"type":"Feature","properties":{"Label":"Children's Hospital Colorado at Parker Adventist Hospital, Emergency Care, Parker"},"geometry":{"type":"Point","coordinates":[-104.7699255,39.5479351]}},{"type":"Feature","properties":{"Label":"Colorado Mental Health Institute-Fort Logan"},"geometry":{"type":"Point","coordinates":[-105.034208,39.641285]}},{"type":"Feature","properties":{"Label":"Concentra Urgent Care"},"geometry":{"type":"Point","coordinates":[-104.8669724,39.6754177]}},{"type":"Feature","properties":{"Label":"Delta Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-108.0480952,38.7449589]}},{"type":"Feature","properties":{"Label":"Denver Health Medical Center Emergency Department Trauma Center"},"geometry":{"type":"Point","coordinates":[-104.990709,39.7284644]}},{"type":"Feature","properties":{"Label":"Denver Health Medical Emergency Center for Children"},"geometry":{"type":"Point","coordinates":[-104.9910818,39.7276558]}},{"type":"Feature","properties":{"Label":"Denver West Surgery Center"},"geometry":{"type":"Point","coordinates":[-105.1529788,39.7464202]}},{"type":"Feature","properties":{"Label":"Eben-Ezer Lutheran Care Center"},"geometry":{"type":"Point","coordinates":[-103.6429792,40.2546936]}},{"type":"Feature","properties":{"Label":"Flying Horse Medical & Aesthetics Center"},"geometry":{"type":"Point","coordinates":[-104.7987826,39.0257709]}},{"type":"Feature","properties":{"Label":"Founders Family Medicine and Urgent Care"},"geometry":{"type":"Point","coordinates":[-104.8590777,39.4061699]}},{"type":"Feature","properties":{"Label":"Health Unit"},"geometry":{"type":"Point","coordinates":[-105.1164519,39.7173623]}},{"type":"Feature","properties":{"Label":"Hearing Rehab Center"},"geometry":{"type":"Point","coordinates":[-105.0953676,40.5558611]}},{"type":"Feature","properties":{"Label":"Kindred Hospital Aurora"},"geometry":{"type":"Point","coordinates":[-104.8266092,39.7281498]}},{"type":"Feature","properties":{"Label":"Kindred Hospital Denver"},"geometry":{"type":"Point","coordinates":[-104.9644468,39.74628]}},{"type":"Feature","properties":{"Label":"Kit Carson County Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-102.2704064,39.3029706]}},{"type":"Feature","properties":{"Label":"Peoples clinic"},"geometry":{"type":"Point","coordinates":[-105.2825243,40.0353161]}},{"type":"Feature","properties":{"Label":"SCL Health Saint Joseph Hospital"},"geometry":{"type":"Point","coordinates":[-104.9710857,39.7461762]}},{"type":"Feature","properties":{"Label":"Tennyson Center for Children at Colorado Christian Home"},"geometry":{"type":"Point","coordinates":[-105.0434853,39.7594523]}},{"type":"Feature","properties":{"Label":"The Denver Hospice"},"geometry":{"type":"Point","coordinates":[-104.8919851,39.7199008]}},{"type":"Feature","properties":{"Label":"UC Health Hospital UNDER CONSTRUCTION"},"geometry":{"type":"Point","coordinates":[-105.0055419,39.5522109]}},{"type":"Feature","properties":{"Label":"UCHealth Sterling Ranch Medical Center"},"geometry":{"type":"Point","coordinates":[-105.0374595,39.5068577]}},{"type":"Feature","properties":{"Label":"University of Colorado Hospital"},"geometry":{"type":"Point","coordinates":[-104.841661,39.7425435]}},{"type":"Feature","properties":{"Label":null},"geometry":{"type":"Point","coordinates":[-105.2430555,40.0192855]}}]}
 
