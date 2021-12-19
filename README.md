@@ -1,6 +1,6 @@
-# 675 Final Project
+# 675 Final Project - Denver Schools & Medical Centers
 
-For my final project, I chose "Option 1: Diving deeper into Mapbox Studio and Mapbox GL JS."
+For my final project in MAP 675, I chose "Option 1: Diving deeper into Mapbox Studio and Mapbox GL JS."
 
 I followed an [intermediate Mapbox tutorial](https://docs.mapbox.com/help/tutorials/analysis-with-turf/) on how to analyze data with Turf.js and Mapbox GS JL (the tutorial uses data of libraries and hopsitals in Lexington, which was cool!). Using data of schools and medical centers around Denver, Colorado, my map highlights the nearest medical center when a user clicks on a school. 
 
