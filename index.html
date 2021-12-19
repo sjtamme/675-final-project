@@ -48,13 +48,19 @@
         // access token
         mapboxgl.accessToken =
             'pk.eyJ1Ijoic2p0YW1tZSIsImEiOiJja2k5NHozZDEwY2JrMnZueDYyemF6MW5lIn0.h76rcKDSZ9pmmvrCFSWXyQ';
+            // Set bounds to state of Colorado
+            const bounds = [
+            [-109.060253, 36.992426], 
+            [-102.041524, 41.003444]
+            ];  
 
         // create a new map
         const map = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
             center: [-104.9903, 39.7392], // starting position
-            zoom: 12 // starting zoom
+            zoom: 12, // starting zoom
+            maxBounds: bounds // Set the map's geographical boundaries
         });
 
         const hospitals = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"Label":"Bonfils Blood Center"},"geometry":{"type":"Point","coordinates":[-105.1552468,39.7442094]}},{"type":"Feature","properties":{"Label":"Buck Creek Medical Center"},"geometry":{"type":"Point","coordinates":[-106.5223865,39.6396839]}},{"type":"Feature","properties":{"Label":"Cedar Springs Hospital"},"geometry":{"type":"Point","coordinates":[-104.8166404,38.8019373]}},{"type":"Feature","properties":{"Label":"Child First Pediatrics"},"geometry":{"type":"Point","coordinates":[-104.8848628,39.5840004]}},{"type":"Feature","properties":{"Label":"Children's Hospital Colorado at Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-104.799593,38.8393776]}},{"type":"Feature","properties":{"Label":"Children's Hospital Colorado at Parker Adventist Hospital, Emergency Care, Parker"},"geometry":{"type":"Point","coordinates":[-104.7699255,39.5479351]}},{"type":"Feature","properties":{"Label":"Colorado Mental Health Institute-Fort Logan"},"geometry":{"type":"Point","coordinates":[-105.034208,39.641285]}},{"type":"Feature","properties":{"Label":"Concentra Urgent Care"},"geometry":{"type":"Point","coordinates":[-104.8669724,39.6754177]}},{"type":"Feature","properties":{"Label":"Delta Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-108.0480952,38.7449589]}},{"type":"Feature","properties":{"Label":"Denver Health Medical Center Emergency Department Trauma Center"},"geometry":{"type":"Point","coordinates":[-104.990709,39.7284644]}},{"type":"Feature","properties":{"Label":"Denver Health Medical Emergency Center for Children"},"geometry":{"type":"Point","coordinates":[-104.9910818,39.7276558]}},{"type":"Feature","properties":{"Label":"Denver West Surgery Center"},"geometry":{"type":"Point","coordinates":[-105.1529788,39.7464202]}},{"type":"Feature","properties":{"Label":"Eben-Ezer Lutheran Care Center"},"geometry":{"type":"Point","coordinates":[-103.6429792,40.2546936]}},{"type":"Feature","properties":{"Label":"Flying Horse Medical & Aesthetics Center"},"geometry":{"type":"Point","coordinates":[-104.7987826,39.0257709]}},{"type":"Feature","properties":{"Label":"Founders Family Medicine and Urgent Care"},"geometry":{"type":"Point","coordinates":[-104.8590777,39.4061699]}},{"type":"Feature","properties":{"Label":"Health Unit"},"geometry":{"type":"Point","coordinates":[-105.1164519,39.7173623]}},{"type":"Feature","properties":{"Label":"Hearing Rehab Center"},"geometry":{"type":"Point","coordinates":[-105.0953676,40.5558611]}},{"type":"Feature","properties":{"Label":"Kindred Hospital Aurora"},"geometry":{"type":"Point","coordinates":[-104.8266092,39.7281498]}},{"type":"Feature","properties":{"Label":"Kindred Hospital Denver"},"geometry":{"type":"Point","coordinates":[-104.9644468,39.74628]}},{"type":"Feature","properties":{"Label":"Kit Carson County Memorial Hospital"},"geometry":{"type":"Point","coordinates":[-102.2704064,39.3029706]}},{"type":"Feature","properties":{"Label":"Peoples clinic"},"geometry":{"type":"Point","coordinates":[-105.2825243,40.0353161]}},{"type":"Feature","properties":{"Label":"SCL Health Saint Joseph Hospital"},"geometry":{"type":"Point","coordinates":[-104.9710857,39.7461762]}},{"type":"Feature","properties":{"Label":"Tennyson Center for Children at Colorado Christian Home"},"geometry":{"type":"Point","coordinates":[-105.0434853,39.7594523]}},{"type":"Feature","properties":{"Label":"The Denver Hospice"},"geometry":{"type":"Point","coordinates":[-104.8919851,39.7199008]}},{"type":"Feature","properties":{"Label":"UC Health Hospital UNDER CONSTRUCTION"},"geometry":{"type":"Point","coordinates":[-105.0055419,39.5522109]}},{"type":"Feature","properties":{"Label":"UCHealth Sterling Ranch Medical Center"},"geometry":{"type":"Point","coordinates":[-105.0374595,39.5068577]}},{"type":"Feature","properties":{"Label":"University of Colorado Hospital"},"geometry":{"type":"Point","coordinates":[-104.841661,39.7425435]}},{"type":"Feature","properties":{"Label":null},"geometry":{"type":"Point","coordinates":[-105.2430555,40.0192855]}}]}
@@ -117,7 +123,7 @@
             });
 
             map.on('click', (event) => {
-                // Return any features from the 'libraries' layer whenever the map is clicked
+
                 const schoolFeatures = map.queryRenderedFeatures(event.point, {
                     layers: ['schools']
                 });
@@ -126,23 +132,21 @@
                 }
                 const schoolFeature = schoolFeatures[0];
 
+                // Center map on click
                 map.flyTo({
-center: schoolFeature.geometry.coordinates
-});
+                center: schoolFeature.geometry.coordinates
+                });
 
-                // Using Turf, find the nearest hospital to library clicked
+                // Using Turf, find the nearest hospital to school clicked
                 const nearestHospital = turf.nearest(schoolFeature, hospitals);
 
-                // If a nearest library is not found, return early
                 if (nearestHospital === null) return;
-                // Update the 'nearest-library' data source to include
-                // the nearest library
+               
                 map.getSource('nearest-hospital').setData({
                     type: 'FeatureCollection',
                     features: [nearestHospital]
                 });
 
-                // Create a new circle layer from the 'nearest-library' data source
                 if (map.getLayer('nearest-hospital')) {
                     map.removeLayer('nearest-hospital');
                 }
